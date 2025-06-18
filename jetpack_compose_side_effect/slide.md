@@ -155,7 +155,7 @@ fun UserDataLoader(userId: String) {
 <!-- _class: lead -->
 # まとめ
 
-1. 副作用 = UI描画以外の外部状態への操作
+1. JetpackComposeの副作用 = UI描画以外の外部状態への操作
 2. Composeは専用APIで安全に管理
 3. 適切なAPIの使い分けが重要
    - `LaunchedEffect`
