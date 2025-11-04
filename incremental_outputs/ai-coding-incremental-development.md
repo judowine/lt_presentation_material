@@ -74,25 +74,26 @@
 ```mermaid
 graph TB
     subgraph layer1["🎯 PO視点：スプリントインクリメント"]
-        style layer1 fill:#e1f5ff,stroke:#01579b,stroke-width:3px
         pbi["PBI全体がデモ可能<br/>受け入れ基準クリア<br/>価値を提供できる"]
         cycle1["⏱️ サイクル: 1-2週間"]
     end
-    
+
     subgraph layer2["📋 タスクマネジメント視点：タスクインクリメント"]
-        style layer2 fill:#fff3e0,stroke:#e65100,stroke-width:2px
         task["PBIの一部がデモ可能<br/>いつでも見せられる<br/>動作で品質保証"]
         cycle2["⏱️ サイクル: 数時間〜1日"]
     end
-    
+
     subgraph layer3["💻 開発者視点：バイブコーディングインクリメント"]
-        style layer3 fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
         vibe["書く→動かす→確認<br/>AIとの対話<br/>最小単位の進捗"]
         cycle3["⏱️ サイクル: 数分〜30分"]
     end
-    
+
     layer3 --> layer2
     layer2 --> layer1
+
+    style layer1 fill:#e1f5ff,stroke:#01579b,stroke-width:3px
+    style layer2 fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    style layer3 fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
 ```
 
 それぞれ、もう少し詳しく見ていこう。
@@ -183,13 +184,13 @@ graph TB
         v3 -.->|進まない| t1["見せられる状態にならない"]
         note1["原因: 動作確認なし<br/>デモ方法がない<br/>自信がない"]
     end
-    
+
     subgraph pattern2["❌ パターン2: タスクは完了するがPBIにならない"]
         t2["部分完成"] --> t3["部分完成"] --> t4["部分完成"]
         t4 -.->|統合失敗| p1["全体デモできない"]
         note2["原因: E2E観点なし<br/>受け入れ基準曖昧"]
     end
-    
+
     subgraph pattern3["❌ パターン3: バイブコーディングが進まない"]
         v4["AI指示"] --> v5["書き直し"] --> v6["また書き直し"]
         v6 --> v4
@@ -265,13 +266,13 @@ graph TB
         stress["「ちゃんと読まなきゃ」<br/>というプレッシャー"]
         bottleneck["レビューがボトルネックに"]
         stuck["PRが通らない<br/>インクリメントが出ない"]
-        
+
         ai --> human
         human --> stress
         stress --> bottleneck
         bottleneck --> stuck
     end
-    
+
     style problem fill:#ffebee,stroke:#c62828,stroke-width:2px
     style stuck fill:#ef5350,color:#fff
 ```
@@ -348,22 +349,23 @@ AIコーディング時代の品質保証には、3つの層がある：
 ```mermaid
 graph TB
     subgraph layer1["🎯 第1層：振る舞いの検証（最優先）"]
-        style layer1 fill:#e8f5e9,stroke:#2e7d32,stroke-width:4px
         behavior["ユーザーストーリー<br/>受け入れ基準<br/>E2Eテスト、統合テスト<br/>「何ができるようになったか」"]
     end
-    
+
     subgraph layer2["🧪 第2層：テストコードの検証（中優先）"]
-        style layer2 fill:#fff9c4,stroke:#f57f17,stroke-width:2px
         test["ユニットテストの妥当性<br/>カバレッジ<br/>テストの保守性"]
     end
-    
+
     subgraph layer3["📝 第3層：ソースコードの検証（最低限）"]
-        style layer3 fill:#fce4ec,stroke:#880e4f,stroke-width:1px
         code["セキュリティ<br/>パフォーマンスの重大な問題<br/>明らかなアンチパターン<br/>リスクベースの限定的レビュー"]
     end
-    
+
     layer1 -.->|カバーできない部分を| layer2
     layer2 -.->|さらに補完| layer3
+
+    style layer1 fill:#e8f5e9,stroke:#2e7d32,stroke-width:4px
+    style layer2 fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    style layer3 fill:#fce4ec,stroke:#880e4f,stroke-width:1px
 ```
 
 **第1層：振る舞いの検証（最優先）**
@@ -404,25 +406,25 @@ graph LR
     subgraph same_instruction["同じ指示"]
         instruction["「ユーザー登録機能を作って」"]
     end
-    
+
     subgraph different_code["異なる実装"]
         impl1["実装A<br/>async/await使用"]
         impl2["実装B<br/>Promise使用"]
         impl3["実装C<br/>別のライブラリ使用"]
     end
-    
+
     subgraph same_behavior["同じ振る舞い"]
         behavior["✅ ユーザー登録ができる"]
     end
-    
+
     instruction --> impl1
     instruction --> impl2
     instruction --> impl3
-    
+
     impl1 --> behavior
     impl2 --> behavior
     impl3 --> behavior
-    
+
     style behavior fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px
 ```
 
@@ -543,7 +545,7 @@ graph LR
     D -->|Yes| E["次へ"]
     D -->|No| F["指示を修正"]
     F --> B
-    
+
     style A fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
     style C fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
     style E fill:#a5d6a7
@@ -613,7 +615,7 @@ graph TB
     F -->|No| H["指示を修正"]
     H --> D
     G --> I["レビュアーに動作確認してもらう"]
-    
+
     style B fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
     style C fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
     style E fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
@@ -721,7 +723,7 @@ graph TB
     G -->|No| H["統合の問題を修正"]
     H --> E
     G -->|Yes| I["POにデモ"]
-    
+
     style B fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
     style C fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
     style F fill:#c8e6c9,stroke:#2e7d32,stroke-width:2px
@@ -849,14 +851,14 @@ graph LR
         b2["テスト<br/>（あれば）"]
         b3["モニタリング<br/>（本番で）"]
     end
-    
+
     subgraph after["新しい品質保証"]
         a1["振る舞いテスト<br/>（常に）"]
         a2["動作確認<br/>（PR時）"]
         a3["モニタリング<br/>（ステージング〜本番）"]
         a4["ソースコードレビュー<br/>（リスクベース）"]
     end
-    
+
     style before fill:#ffebee
     style after fill:#e8f5e9
 ```
@@ -923,7 +925,7 @@ graph TB
         t3 --> t4["本番で問題発生"]
         t4 --> t5["慌てて対応"]
     end
-    
+
     subgraph modern["新しい方法：問題を早期発見"]
         m1["振る舞いテスト"] --> m2["動作確認"]
         m2 --> m3["ステージング環境で確認"]
@@ -931,7 +933,7 @@ graph TB
         m4 --> m5["問題を早期発見"]
         m5 --> m6["素早く対応"]
     end
-    
+
     style traditional fill:#ffebee
     style modern fill:#e8f5e9
 ```
@@ -1600,7 +1602,7 @@ graph TB
         F --> G["人間：最終判断"]
         G --> H["マージ"]
     end
-    
+
     style A fill:#c8e6c9
     style C fill:#c8e6c9
     style E fill:#bbdefb
